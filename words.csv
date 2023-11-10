@@ -18,21 +18,21 @@ souvenir,おみやげ,お土産
 heureux de vous connaître,これからおせわになります,これからお世話になります
 réponse à yoroshiku,こちらこそよろしくおねがいします,こちらこそよろしくお願いします
 salle de cours,きょうしつ,教室
-restaurant/cantine,しょくどう,食堂
+restaurant / cantine,しょくどう,食堂
 bureau,じむしょ,事務所
 salle de réunion,かいぎしつ,会議室
 accueil,うけつけ,受付
-salle/chambre,へや,部屋
+salle / chambre,へや,部屋
 escalier,かいだん,階段
 distributeur automatique,じどうはんばいき,自動販売機
 rayon (magasin),うりば,売り場
 sous-sol,ちか,地下
-se lever/réveiller,おきます,起きます
-dormir/se coucher,ねます,寝ます
+se lever / réveiller,おきます,起きます
+dormir / se coucher,ねます,寝ます
 travailler,はたらきます,働きます
-se reposer/prendre un congé,やすみます,休みます
+se reposer / prendre un congé,やすみます,休みます
 étudier,べんきょうします,勉強します
-se terminer/finir,おわります,終わります
+se terminer / finir,おわります,終わります
 bureau de poste,ゆうびんきょく,郵便局
 bibliothèque,としょかん,図書館
 musée,びじゅつかん,美術館
@@ -41,7 +41,7 @@ réunion,かいぎ,会議
 avion,ひこうき,飛行機
 l'année dernière,きょねん,去年
 cette année,ことし
-- quai/voie,ばんせん,番線
+quai / voie,ばんせん,番線
 omnibus,ふつう,普通
 express,きゅうこう,急行
 spécial express,とっきゅう,特急
@@ -49,25 +49,25 @@ thé anglais,こうちゃ,紅茶
 jardin,にわ,庭
 devoirs,しゅくだい,宿題
 contemplation fleurs de cerisiers,おはなみ,お花見
-couper/découper,きります,切ります
+couper / découper,きります,切ります
 envoyer,おくります,送ります
-donner/offrir,あげます
+donner / offrir,あげます
 recevoir,もらいます
-prêter/louer,かします,貸します
+prêter / louer,かします,貸します
 emprunter,かります,借ります
-enseigner/apprendre,おしえます,教えます
+enseigner / apprendre,おしえます,教えます
 apprendre (par quelqu'un),ならいます,習います
 passer [un coup de téléphone],かけます
 ciseaux,はさみ
 carte de voeux du Nouvel An,ねんがじょう,年賀状
 bagage,にもつ,荷物
-animé/fréquenté,にぎやか
-gentil/aimable,しんせつ,親切
+animé / fréquenté,にぎやか
+gentil / aimable,しんせつ,親切
 libre (avoir du temps),ひま,暇
-facile/simple,やさしい,易しい
+facile / simple,やさしい,易しい
 bas,ひくい,低い
-occupé/pris,いそがしい,忙しい
-résidence/pension,りょう,寮
+occupé / pris,いそがしい,忙しい
+résidence / pension,りょう,寮
 vie (quotidienne),せいかつ,生活
 Voulez-vous en prendre un autre [~]?,もう一杯いかがですか
 Non merci,けっこうです
@@ -78,16 +78,16 @@ mari (de quelqu'un d'autre),ごしゅじん,ご主人
 femme (de quelqu'un d'autre),おくさん,奥さん
 (ma) femme,つま,妻
 à peu près,だいたい
-divers/varié,いろいろ
+divers / varié,いろいろ
 pile,でんち,電池
 boîte,はこ,箱
 étagère,たな,棚
-café/salon de thé,きっさてん,喫茶店
+café / salon de thé,きっさてん,喫茶店
 arrêt de bus/taxi,のりば,乗り場
 préfecture,けん,県
-à côté/voisin,となり,隣
-entre/parmi,あいだ,間
-il faut/cela prend (avec argent/temps),かかります
+à côté / voisin,となり,隣
+entre / parmi,あいだ,間
+il faut / cela prend (avec argent/temps),かかります
 mandarine,みかん
 carte postale,はがき
 enveloppe,ふうとう,封筒
@@ -100,14 +100,14 @@ printemps,はる,春
 automne,あき,秋
 arrangement floral,いけばな,生け花
 érable,もみじ,紅葉
-s'amuser/jouer,あそびます,遊びます
+s'amuser / jouer,あそびます,遊びます
 nager,およぎます,泳ぎます
-accueillir/aller chercher,むかえります,迎えります
+accueillir / aller chercher,むかえります,迎えります
 beaux-arts,びじゅつ,美術
 pêche,つり,釣り
 nouvel an,しょうがつ,正月
 avoir soif,のどがかわきます
-mettre en marche/allumer,つけます
+mettre en marche / allumer,つけます
 éteindre,けします,消します
 ouvrir,あけます,開けます
 fermer,しめます,閉めます
@@ -133,7 +133,7 @@ code secret,あんしょうばんごう,暗証番号
 montant/somme d'argent,きんがく,金額
 confirmation,かくにん,確認
 perdre,なくします
-rendre/rembourser,かえします,返します
+rendre / rembourser,かえします,返します
 enlever (chaussures/vêtement),ぬぎます,脱ぎます
 faire un voyage d'affaires,しゅっちょうします,出張します
 défense de fumer,きんえん,禁煙
@@ -141,10 +141,10 @@ carte de sécurité sociale,ほけんしょう,保険証
 fièvre,ねつ,熱
 veste,うわぎ,上着
 sous-vêtement,したぎ,下着
-collectionner/ramasser,あつめます,集めます
-changer/échanger,かえます,換えます
+collectionner / ramasser,あつめます,集めます
+changer / échanger,かえます,換えます
 réserver,よやくします,予約します
-espèces/argent liquide,げんきん,現金
+espèces / argent liquide,げんきん,現金
 hobby,しゅみ,趣味
 journal intime,にっき,日記
 prière,おいのり,お祈り
@@ -153,8 +153,8 @@ chef de département,ぶちょう,部長
 président,しゃちょう,社長
 en particulier,とくに,特に
 descendre [à l'hôtel],とまります,泊まります
-exercice/entraînement,れんしゅう,練習
+exercice / entraînement,れんしゅう,練習
 condition,ちょうし,調子
 avoir besoin de [visa],いります,要ります
-consulter/chercher,しらべます,調べます
+consulter / chercher,しらべます,調べます
 réparer,しゅうりします,修理します
