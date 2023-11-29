@@ -15,8 +15,6 @@ journal,しんぶん,新聞
 agenda,てちょう,手帳
 carte de visite,めいし,名刺
 souvenir,おみやげ,お土産
-heureux de vous connaître,これからおせわになります,これからお世話になります
-réponse à yoroshiku,こちらこそよろしくおねがいします,こちらこそよろしくお願いします
 salle de cours,きょうしつ,教室
 restaurant / cantine,しょくどう,食堂
 bureau,じむしょ,事務所
@@ -69,7 +67,6 @@ bas,ひくい,低い
 occupé / pris,いそがしい,忙しい
 résidence / pension,りょう,寮
 vie (quotidienne),せいかつ,生活
-Voulez-vous en prendre un autre [~]?,もう一杯いかがですか
 Non merci,けっこうです
 baseball,やきゅう,野球
 petite monnaie,こまかいおかね,細かいお金
@@ -196,3 +193,127 @@ campagne / pays natal,いなか,田舎
 cent millions,おく,億
 muter,てんきん,転勤
 temps libre,ひま,暇
+être en retard,おくれます,遅れます
+être à l'heure,まにあいます,間に合います
+faire,やります
+ramasser,ひろいます,拾います
+contacter,れんらくします,連絡します
+portefeuille,さいふ,財布
+jour ouvrable,へいじつ,平日
+très / vraiment,ずいぶん
+directement,ちょくせつ,直接
+être rangé,かたづきます,片付きます
+dépôt,おきば,置き場
+côté,よこ,横
+bouteille,びん,瓶
+boîte en métal / canette,かん,缶
+univers / espace,うちゅう,宇宙
+vaisseau spatial,うちゅうせん,宇宙船
+astronaute,うちゅうひこうし,宇宙飛行士
+avoir (animal),かいます,飼います
+courir / rouler [sur la route],はしります,走ります
+organiser [quelque chose],ひらきます,開きます
+outil / instrument,どうぐ,道具
+autre,ほかの,他の
+clairement,はっきり
+meuble,かぐ,家具
+étagère à livre,ほんだな,本棚
+construire,たてます,建てます
+héro,しゅじんこう,主人公
+mystérieux / étrange,ふしぎ,不思議
+attacher / mettre,つけます,付けます
+librement,じゆうに,自由に
+voler,とびます,飛びます
+autrefois,むかし,昔
+avenir / futur,しょうらい,将来
+mâcher / mordre,かみます
+fréquenter [régulier],かよいます,通います
+sérieux,まじめ
+enthousiaste / assidu,ねっしん,熱心
+admirable / grand,えらい,偉い
+juste / approprié,ちょうどいい
+paysage / vue,けしき,景色
+salon de coiffure,びよういん,美容院
+cuisine,だいどころ,台所
+expérience,けいけん,経験
+article / marchandise,しなもの,品物
+prix,ねだん,値段
+salaire,きゅうりょう,給料
+programme / émission,ばんぐみ,番組
+chanteur,かしゅ,歌手
+roman,しょうせつ,小説
+romancier,しょうせつつか,小説塚
+un certain temps,しばらく
+la plupart du temps,たいてい
+de plus,それに
+c'est pourquoi,それで
+en fait,じつは,実は
+conversation,かいわ,会話
+annonce / information,おしらせ,お知らせ
+participer,さんかします,参加します
+date,ひにち,日にち
+gymnase,たいいくかん,体育館
+gratuit,むりょう,無料
+inviter qqn. à faire qqch.,さそいます,誘います
+[porte] s'ouvrir,あきます,開きます
+[porte] se fermer,しまります,閉まります
+[lumière] s'allumer,つきます
+[lumière] s'éteindre,きえます,消えます
+[chaise] (se) casser,こわれます,壊れます
+[verre] (se) casser,われます,割れます
+[arbre] (se) casser,おれます,折れます
+[papier] se déchirer,やぶれます,破れます
+[vêtement] se salir,よごれます,汚れます
+[poche] être fixée,つきます,付きます
+[bouton] se défaire,はずれます,外れます
+[voiture] s'arrêter,とまります,止まります
+se tromper,まちがえます
+faire tomber / perdre,おとします,落とします
+être fermé [à clé],かかります,掛かります
+essuyer,ふきます
+changer,とりかえます,取り替えます
+bol,ちゃわん
+papiers / document,しょるい,書類
+branche,えだ,枝
+réponse,へんじ,返事
+filet à bagages,あみだな,網棚
+tremblement de terre,じしん,地震
+mur,かべ,壁
+aiguille [montre],はり,針
+indiquer / marquer,さします,指します
+s'écrouler,たおれます,倒れます
+brûler,もえます,燃えます
+afficher / coller,はります
+accrocher,かけます,掛けます
+décorer / mettre,かざります,飾ります
+disposer / ranger,ならべます,並べます
+planter,うえます,植えます
+remettre,もどします,戻します
+faire [bagages] / rassembler / résumer / finir,まとめます
+ranger / mettre qqch dans,しまいます
+décider / choisir,きめます,決めます
+préparer sa leçon,よしゅうします,予習します
+réviser sa leçon,ふくしゅうします,復習します
+laisser tel quel / comme ça,そのままにします
+classe / cours,じゅぎょう,授業
+cours / conférence,こうぎ,講義
+programme / plan,よてい,予定
+programme / planning,よていひょう,予定表
+poubelle,ごみばこ,ゴミ箱
+poupée,にんぎょう,人形
+vase,かびん,花瓶
+miroir,かがみ,鏡
+tiroir,ひきだし,引き出し
+vestibule / entrée,げんかん,玄関
+couloir,ろうか,廊下
+étang / bassin,いけ,池
+circonférence / autour,まわり,周り
+milieu / centre,まんなか,真ん中
+coin,すみ,隅
+sac à dos,リュック
+sac de survis,ひじょうぶくろ,非常袋
+cas d'urgence,ひじょうじ,非常時
+vivre,せいかつします,生活します
+lampe de torche,かいちゅうでんとう,懐中電灯
+alors,すると
+se réveiller,めがさめます,目が覚めます
