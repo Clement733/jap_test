@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese to French Translation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="app">
+        <div id="kanji-container">
+            <h2 id="kanji">Here is the word to translate:</h2>
+            <input type="text" id="user-kanji-input" placeholder="Enter your answer">
+            <button onclick="checkKanjiAnswer()">Check Answer</button>
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+        <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+    </div>
+</body>
+</html>
