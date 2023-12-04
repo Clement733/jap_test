@@ -36,7 +36,6 @@ def get_question(direction):
     if not questions:
         return jsonify({'question': None})
 
-    # Filter questions based on translation direction
     filtered_questions = [q for q in questions if (direction == 'french_to_japanese' and q['kanji'] is not None) or
                                                   (direction == 'japanese_to_french' and q['french'] is not None)]
 
