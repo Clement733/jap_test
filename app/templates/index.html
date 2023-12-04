@@ -7,41 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>French to Japanese Translation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-    h1 {
-      text-align: center;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    .button {
-      display: inline-block;
-      border-radius: 4px;
-      background-color: #f8f8f8;
-      border: none;
-      color: #000000;
-      text-align: center;
-      font-size: 22px;
-      padding: 20px;
-      width: 200px;
-      transition: all 0.5s;
-      cursor: pointer;
-      margin: 5px;
-    }
-    .button:hover {background-color: #828282}
-    .button:active {
-      background-color: #828282;
-      box-shadow: 0 5px #666;
-    }
-    </style>
 </head>
 <body>
     <div id="home">
         <h2>Select Translation Direction:</h2>
-        <a href='french_to_japanese.html' target="_blank"><button class="button">French to Japanese</button></a>
-        <a href='japanese_to_french.html' target="_blank"><button class="button">Japanese to French</button></a>
+        <a href="{{ url_for('french_to_japanese') }}" target="_blank"><button class="button">French to Japanese</button></a>
+        <a href="{{ url_for('japanese_to_french') }}" target="_blank"><button class="button">Japanese to French</button></a>
     </div>
 </body>
 </html>
