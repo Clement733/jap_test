@@ -30,14 +30,29 @@ def french_to_japanese():
 def japanese_to_french():
     return render_template('japanese_to_french.html')
 
-@app.route('/get_question/<direction>')
-def get_question(direction):
+@app.route('/get_question/french_to_japanese')
+def get_question_french_to_japanese():
     global questions
     if not questions:
         return jsonify({'question': None})
 
-    filtered_questions = [q for q in questions if (direction == 'french_to_japanese' and q['kanji'] is not None) or
-                                                  (direction == 'japanese_to_french' and q['french'] is not None)]
+    filtered_questions = [q for q in questions if q['french'] is not None]
+
+    if not filtered_questions:
+        return jsonify({'question': None})
+
+    question = random.choice(filtered_questions)
+    questions.remove(question)
+
+    return jsonify({'question': question})
+
+@app.route('/get_question/japanese_to_french')
+def get_question_japanese_to_french():
+    global questions
+    if not questions:
+        return jsonify({'question': None})
+
+    filtered_questions = [q for q in questions if q['kanji'] is not None]
 
     if not filtered_questions:
         return jsonify({'question': None})

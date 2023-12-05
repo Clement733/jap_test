@@ -10,12 +10,13 @@
 <body>
     <div id="app">
         <div id="kanji-container">
-            <h2 id="kanji">Here is the word to translate:</h2>
-            <input type="text" id="user-kanji-input" class="user-input" placeholder="Enter your answer">
-            <button onclick="checkKanjiAnswer()">Check Answer</button>
-            <button onclick="nextQuestion()">Next</button>
+          <h2 id="kanji">Here is the word to translate:</h2>
+            <input type="text" id="user-kanji-input" class="user-kanji-input" placeholder="Enter your answer"><br>
+            <button class="button" onclick="checkKanjiAnswer()">Check Answer</button>
+            <button class="button" onclick="nextQuestionJapaneseToFrench()">Next</button>
         </div>
-        <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+        <script defer src="{{ url_for('static', filename='jtf_script.js') }}"></script>
     </div>
+    <p id="result"></p>
 </body>
 </html>
