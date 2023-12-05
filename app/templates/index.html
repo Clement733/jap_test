@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Japanese App</title>
-    <h1>Welcome to my Japanese learning app! 🈳🈹🈶</h1>
     <meta charset="UTF-8">
+    <title>App Japonais</title>
+    <h1>Bienvenue sur mon application de Japonais ! 🈳🈹🈶</h1>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>French to Japanese Translation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="home">
-        <h2>Select Translation Direction:</h2>
-        <a href="{{ url_for('french_to_japanese') }}" target="_blank"><button class="button">French to Japanese</button></a>
-        <a href="{{ url_for('japanese_to_french') }}" target="_blank"><button class="button">Japanese to French</button></a>
+        <h2>Sélectionnez votre entraînement :</h2>
+        <a href="{{ url_for('french_to_japanese') }}" target="_blank"><button class="button">Français à Japonais</button></a>
+        <a href="{{ url_for('japanese_to_french') }}" target="_blank"><button class="button">Japonais à Français</button></a>
     </div>
 </body>
 </html>

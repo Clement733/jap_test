@@ -27,7 +27,6 @@ function stringSimilarity(str1, str2) {
 }
 
 function checkKanjiAnswer() {
-  console.log("Checking Kanji Answer");
   const userAnswer = document.getElementById("user-kanji-input").value.toLowerCase();
   const currentWord = getCurrentKanji();
 
@@ -90,7 +89,7 @@ function nextQuestionJapaneseToFrench() {
               document.getElementById("user-kanji-input").value = "";
               document.getElementById("result").textContent = "";
           } else {
-              alert('No more questions available.');
+              alert('Plus de vocabulaire disponible. Veuillez recharger la page.');
           }
       })
       .catch(error => console.error('Error fetching question:', error));
@@ -98,7 +97,7 @@ function nextQuestionJapaneseToFrench() {
 
 function showKanjiOnPage(word) {
   const kanjiElement = document.getElementById("kanji");
-  kanjiElement.textContent = `Here is the word to translate: ${word.kanji}`;
+  kanjiElement.textContent = `Voici le mot à traduire : ${word.kanji}`;
 
   kanjiElement.setAttribute("data-word", JSON.stringify(word));
 }

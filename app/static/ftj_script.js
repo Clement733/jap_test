@@ -24,7 +24,7 @@ function getCurrentWord() {
 
 function showWordOnPage(word) {
   const questionElement = document.getElementById("question");
-  questionElement.textContent = `Translate: ${word.french}`;
+  questionElement.textContent = `Voici le mot à traduire : ${word.french}`;
 
   questionElement.setAttribute("data-word", JSON.stringify(word));
 }
@@ -34,7 +34,6 @@ function nextQuestion() {
   fetch(`/get_question/${direction}`)
       .then(response => response.json())
       .then(data => {
-          console.log('Received data from server:', data);
           const word = data.question;
           if (word) {
               if (direction === 'japanese_to_french') {
@@ -46,7 +45,7 @@ function nextQuestion() {
               }
               document.getElementById("result").textContent = "";
           } else {
-              alert('No more questions available.');
+              alert('Plus de vocabulaire disponible. Veuillez recharger la page.');
           }
       })
       .catch(error => console.error('Error fetching question:', error));

@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japanese to French Translation</title>
-    <h1>Japanese 🇯🇵 to French 🇫🇷 </h1>
+    <title>Traduction Jp-Fr</title>
+    <h1>Japonais 🇯🇵 à Français 🇫🇷 </h1>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="app">
         <div id="kanji-container">
-          <h2 id="kanji">Here is the word to translate:</h2>
-            <input type="text" id="user-kanji-input" class="user-kanji-input" placeholder="Enter your answer"><br>
-            <button class="button" onclick="checkKanjiAnswer()">Check Answer</button>
-            <button class="button" onclick="nextQuestionJapaneseToFrench()">Next</button>
+          <h2 id="kanji">Voici le mot à traduire :</h2>
+            <input type="text" id="user-kanji-input" class="user-kanji-input" placeholder="Entrez votre réponse"><br>
+            <button class="button" onclick="checkKanjiAnswer()">Vérification</button>
+            <button class="button" onclick="nextQuestionJapaneseToFrench()">Suivant</button>
         </div>
         <script defer src="{{ url_for('static', filename='jtf_script.js') }}"></script>
     </div>
