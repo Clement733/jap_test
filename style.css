@@ -14,3 +14,7 @@ body {
     margin-left: 1rem;
     font-size: 1rem;
   }
+
+  b {
+    color: #1e90ff;
+  }
