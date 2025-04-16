@@ -9,7 +9,7 @@ fetch('words.json')
   .then(data => {
     questions = data.filter(q => q.french && (q.hiragana || q.kanji));
     nextQuestion();
-});
+  });
 
 function nextQuestion() {
   if (questions.length === 0) {
@@ -21,7 +21,6 @@ function nextQuestion() {
   const index = Math.floor(Math.random() * questions.length);
   current = questions.splice(index, 1)[0];
 
-  // Random direction
   const directions = ['french_to_japanese', 'japanese_to_french'];
   currentLanguage = directions[Math.floor(Math.random() * directions.length)];
 
@@ -40,73 +39,88 @@ function nextQuestion() {
 }
 
 function checkAnswer() {
-    const userInput = document.getElementById("answer").value.trim().toLowerCase();
-    let correctAnswer = '';
-    let isCorrect = false;
-  
-    if (currentLanguage === 'french_to_japanese') {
-      const hira = current.hiragana?.trim();
-      const kanji = current.kanji?.trim();
-      isCorrect = userInput === hira || userInput === kanji;
-      correctAnswer = `${hira} (${kanji || "no kanji"})`;
-    } else {
-      const answers = current.french.split('/').map(a => a.trim().toLowerCase());
-  
-      // Check for exact or substring match first
-      isCorrect = answers.some(ans => ans.includes(userInput) || userInput.includes(ans));
-  
-      // If still incorrect, apply fuzzy logic
-      if (!isCorrect) {
-        isCorrect = answers.some(ans => fuzzball.ratio(ans, userInput) > 80);
-      }
-  
-      correctAnswer = current.french;
+  const rawInput = document.getElementById("answer").value.trim().toLowerCase();
+  const userInput = rawInput.replace(/\s+/g, ' '); // Normalize multiple spaces
+
+  let isCorrect = false;
+  let correctAnswer = '';
+
+  if (currentLanguage === 'french_to_japanese') {
+    const hira = current.hiragana?.trim();
+    const kanji = current.kanji?.trim();
+    isCorrect = userInput === hira || userInput === kanji;
+    correctAnswer = `${hira} (${kanji || "no kanji"})`;
+  } else {
+    const answers = current.french
+      .split('/')
+      .map(a => a.trim().toLowerCase().replace(/\s+/g, ' '));
+
+    // Exact match or substring
+    isCorrect = answers.some(ans => ans.includes(userInput) || userInput.includes(ans));
+
+    // Fuzzy match fallback (80% similarity)
+    if (!isCorrect) {
+      isCorrect = answers.some(ans => fuzzball.ratio(ans, userInput) > 80);
     }
-  
-    if (isCorrect) {
-      feedbackCorrect();
-    } else {
-      feedbackIncorrect(correctAnswer);
-    }
+
+    correctAnswer = current.french;
+  }
+
+  if (isCorrect) {
+    feedbackCorrect();
+  } else {
+    feedbackIncorrect(correctAnswer);
+  }
 }
-  
-  
+
+function feedbackCorrect() {
+  document.getElementById("feedback").innerText = "✅ Correct!";
+  score++;
+  streak++;
+  updateScore();
+  showNextButton();
+}
+
+function feedbackIncorrect(correctAnswer) {
+  document.getElementById("feedback").innerHTML = `❌ Wrong! Expected: ${highlightAnswer(correctAnswer)}`;
+  streak = 0;
+  updateScore();
+  showRetryAndAccept();
+}
 
 function showAnswer() {
-    if (!current) return;
+  if (!current) return;
 
-    let correct = '';
-    if (currentLanguage === 'french_to_japanese') {
-      correct = `${current.hiragana} (${current.kanji || "no kanji"})`;
-    } else {
-      correct = current.french;
-    }
+  let correct = '';
+  if (currentLanguage === 'french_to_japanese') {
+    correct = `${current.hiragana} (${current.kanji || "no kanji"})`;
+  } else {
+    correct = current.french;
+  }
 
-    document.getElementById("feedback").innerText = `💡 Answer: ${correct}`;
-    showNextButton();
-    streak = 0;
-    updateScore();
+  document.getElementById("feedback").innerHTML = `💡 Answer: ${highlightAnswer(correct)}`;
+  showNextButton();
+  streak = 0;
+  updateScore();
 }
 
 function highlightAnswer(correctAnswer) {
-    const input = document.getElementById("answer").value.trim().toLowerCase();
-    const answers = correctAnswer.split('/').map(a => a.trim());
-  
-    for (let ans of answers) {
-      const lowerAns = ans.toLowerCase();
-      if (lowerAns.includes(input)) {
-        // Highlight input inside answer
-        const start = lowerAns.indexOf(input);
-        const end = start + input.length;
-        return `${ans.slice(0, start)}<b>${ans.slice(start, end)}</b>${ans.slice(end)}`;
-      }
+  const rawInput = document.getElementById("answer").value.trim().toLowerCase();
+  const userInput = rawInput.replace(/\s+/g, ' ');
+
+  const answers = correctAnswer.split('/').map(a => a.trim());
+
+  for (let ans of answers) {
+    const lowerAns = ans.toLowerCase();
+    const start = lowerAns.indexOf(userInput);
+    if (start !== -1) {
+      const end = start + userInput.length;
+      return `${ans.slice(0, start)}<b>${ans.slice(start, end)}</b>${ans.slice(end)}`;
     }
-  
-    // No highlight match found
-    return correctAnswer;
   }
-  
-  
+
+  return answers[0]; // fallback
+}
 
 function tryAgain() {
   document.getElementById("feedback").innerText = "";
@@ -114,46 +128,26 @@ function tryAgain() {
   showCheckAndShowAnswer();
 }
 
+function acceptAnswer() {
+  feedbackCorrect();
+}
+
 function updateScore() {
   document.getElementById("score").innerText = score;
   document.getElementById("streak").innerText = streak;
 }
 
-function feedbackCorrect() {
-    document.getElementById("feedback").innerText = "✅ Correct!";
-    score++;
-    streak++;
-    updateScore();
-    showNextButton();
-}
-  
-function feedbackIncorrect(correctAnswer) {
-    document.getElementById("feedback").innerText = `❌ Wrong! Expected: ${highlightAnswer(correctAnswer)}`;
-    document.getElementById("feedback").innerHTML = `❌ Wrong! Expected: ${highlightAnswer(correctAnswer)}`;
-    streak = 0;
-    updateScore();
-    showRetryAndAccept();
-}
-  
-function acceptAnswer() {
-    feedbackCorrect();
-}
-  
-function showRetryAndAccept() {
-    document.getElementById("retry-button").style.display = "inline-block";
-    document.getElementById("accept-button").style.display = "inline-block";
-    document.getElementById("next-button").style.display = "none";
-}
-  
+// UI Control Helpers
 function showNextButton() {
-    document.getElementById("next-button").style.display = "inline-block";
-    document.getElementById("retry-button").style.display = "none";
-    document.getElementById("accept-button").style.display = "none";
-    document.getElementById("answer").disabled = true;
+  document.getElementById("next-button").style.display = "inline-block";
+  document.getElementById("retry-button").style.display = "none";
+  document.getElementById("accept-button").style.display = "none";
+  document.getElementById("answer").disabled = true;
 }
 
-function showRetryButton() {
+function showRetryAndAccept() {
   document.getElementById("retry-button").style.display = "inline-block";
+  document.getElementById("accept-button").style.display = "inline-block";
   document.getElementById("next-button").style.display = "none";
   document.getElementById("answer").disabled = false;
 }
@@ -161,10 +155,12 @@ function showRetryButton() {
 function showCheckAndShowAnswer() {
   document.getElementById("next-button").style.display = "none";
   document.getElementById("retry-button").style.display = "none";
+  document.getElementById("accept-button").style.display = "none";
   document.getElementById("answer").disabled = false;
 }
 
 function hideButtons() {
   document.getElementById("next-button").style.display = "none";
   document.getElementById("retry-button").style.display = "none";
+  document.getElementById("accept-button").style.display = "none";
 }
