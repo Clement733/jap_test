@@ -67,18 +67,21 @@ function checkAnswer() {
 }
 
 function showAnswer() {
-  let correct = '';
-  if (currentLanguage === 'french_to_japanese') {
-    correct = `${current.hiragana} (${current.kanji || "no kanji"})`;
-  } else {
-    correct = current.french;
+    if (!current) return;
+    
+    let correct = '';
+    if (currentLanguage === 'french_to_japanese') {
+      correct = `${current.hiragana} (${current.kanji || "no kanji"})`;
+    } else {
+      correct = current.french;
+    }
+    
+    document.getElementById("feedback").innerText = `💡 Answer: ${correct}`;
+    showNextButton();
+    streak = 0;
+    updateScore();
   }
-
-  document.getElementById("feedback").innerText = `💡 Answer: ${correct}`;
-  showNextButton();
-  streak = 0;
-  updateScore();
-}
+  
 
 function tryAgain() {
   document.getElementById("feedback").innerText = "";
