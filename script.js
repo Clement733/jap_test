@@ -19,9 +19,21 @@ fetch('words.json')
       // mixed mode
       questions = data.filter(q => q.french && (q.hiragana || q.kanji));
     }
-    nextQuestion();
-  });
 
+    if (questions.length === 0) {
+      document.getElementById("question").innerText =
+        "⚠️ No available questions for this mode.";
+      hideButtons();
+      return;
+    }
+
+    nextQuestion();
+  })
+  .catch(err => {
+    document.getElementById("question").innerText =
+      "❌ Error loading questions.";
+    console.error("Error loading words.json:", err);
+});
 
 function nextQuestion() {
     if (questions.length === 0) {
