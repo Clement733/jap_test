@@ -40,7 +40,7 @@ function nextQuestion() {
 
 function checkAnswer() {
   const rawInput = document.getElementById("answer").value.trim().toLowerCase();
-  const userInput = rawInput.replace(/\s+/g, ' '); // Normalize multiple spaces
+  const userInput = rawInput.replace(/\s+/g, ' ');
 
   let isCorrect = false;
   let correctAnswer = '';
@@ -51,14 +51,19 @@ function checkAnswer() {
     isCorrect = userInput === hira || userInput === kanji;
     correctAnswer = `${hira} (${kanji || "no kanji"})`;
   } else {
+    // → We're in japanese_to_french mode: expecting French input
     const answers = current.french
       .split('/')
       .map(a => a.trim().toLowerCase().replace(/\s+/g, ' '));
 
-    // Exact match or substring
+    // Debug log
+    console.log("Expecting one of:", answers);
+    console.log("User input:", userInput);
+
+    // Check if any answer contains or is contained by user input
     isCorrect = answers.some(ans => ans.includes(userInput) || userInput.includes(ans));
 
-    // Fuzzy match fallback (80% similarity)
+    // Fuzzy match if not an obvious substring match
     if (!isCorrect) {
       isCorrect = answers.some(ans => fuzzball.ratio(ans, userInput) > 80);
     }
@@ -72,6 +77,7 @@ function checkAnswer() {
     feedbackIncorrect(correctAnswer);
   }
 }
+
 
 function feedbackCorrect() {
   document.getElementById("feedback").innerText = "✅ Correct!";
