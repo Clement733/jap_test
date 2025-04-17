@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const quizMode = urlParams.get('mode') || 'mixed';
+const quizMode = window.quizMode || 'mixed';
 
 let questions = [];
 let current = null;
@@ -12,38 +12,39 @@ fetch('words.json')
   .then(data => {
     questions = data.filter(q => q.french && (q.hiragana || q.kanji));
     nextQuestion();
-  });
+});
 
 function nextQuestion() {
-  if (questions.length === 0) {
-    document.getElementById("question").innerText = "Quiz finished!";
-    hideButtons();
-    return;
-  }
-
-  const index = Math.floor(Math.random() * questions.length);
-  current = questions.splice(index, 1)[0];
-
-  if (quizMode === 'mixed') {
-    const directions = ['french_to_japanese', 'japanese_to_french'];
-    currentLanguage = directions[Math.floor(Math.random() * directions.length)];
-  } else {
-    currentLanguage = quizMode; // Use the selected mode
-  }
-
-  let questionText = '';
-  if (currentLanguage === 'french_to_japanese') {
-    questionText = `Translate to Japanese: ${current.french}`;
-  } else {
-    questionText = `Translate to French: ${current.kanji || current.hiragana}`;
-  }
-
-  document.getElementById("question").innerText = questionText;
-  document.getElementById("feedback").innerText = "";
-  document.getElementById("answer").value = "";
-
-  showCheckAndShowAnswer();
+    if (questions.length === 0) {
+      document.getElementById("question").innerText = "Quiz finished!";
+      hideButtons();
+      return;
+    }
+  
+    const index = Math.floor(Math.random() * questions.length);
+    current = questions.splice(index, 1)[0];
+  
+    if (quizMode === 'mixed') {
+      const directions = ['french_to_japanese', 'japanese_to_french'];
+      currentLanguage = directions[Math.floor(Math.random() * directions.length)];
+    } else {
+      currentLanguage = quizMode;
+    }
+  
+    let questionText = '';
+    if (currentLanguage === 'french_to_japanese') {
+      questionText = `Translate to Japanese: ${current.french}`;
+    } else {
+      questionText = `Translate to French: ${current.kanji || current.hiragana}`;
+    }
+  
+    document.getElementById("question").innerText = questionText;
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("answer").value = "";
+  
+    showCheckAndShowAnswer();
 }
+  
 
 function checkAnswer() {
   const rawInput = document.getElementById("answer").value.trim().toLowerCase();
@@ -164,10 +165,6 @@ function hideButtons() {
   document.getElementById("retry-button").style.display = "none";
   document.getElementById("accept-button").style.display = "none";
 }
-
-//
-// === Lightweight Fuzzy Matching ===
-//
 
 function tokenMatch(input, expected) {
   const inputWords = input.split(/\s+/);
