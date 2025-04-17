@@ -1,4 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
 const quizMode = window.quizMode || 'mixed';
 
 let questions = [];

@@ -28,10 +28,7 @@
   <script>
     // Get the quiz mode from the URL (default to 'mixed')
     const urlParams = new URLSearchParams(window.location.search);
-    const quizMode = urlParams.get('mode') || 'mixed';
-
-    // Make the quiz mode available globally in script.js
-    window.quizMode = quizMode;
+    window.quizMode = urlParams.get('mode') || 'mixed';
   </script>
   <script src="script.js"></script>
 </body>
