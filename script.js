@@ -10,9 +10,18 @@ let streak = 0;
 fetch('words.json')
   .then(res => res.json())
   .then(data => {
-    questions = data.filter(q => q.french && (q.hiragana || q.kanji));
+    // Filter data based on selected quiz mode
+    if (quizMode === 'french_to_japanese') {
+      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
+    } else if (quizMode === 'japanese_to_french') {
+      questions = data.filter(q => q.hiragana || q.kanji);
+    } else {
+      // mixed mode
+      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
+    }
     nextQuestion();
-});
+  });
+
 
 function nextQuestion() {
     if (questions.length === 0) {
