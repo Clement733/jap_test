@@ -3,7 +3,6 @@ let current = null;
 let currentLanguage = null;
 let score = 0;
 let streak = 0;
-let totalAttempts = 0;
 
 fetch('words.json')
   .then(res => res.json())
@@ -60,16 +59,12 @@ function checkAnswer() {
     correctAnswer = current.french;
   }
 
-  totalAttempts++; // Count every question the user checks
-  updateScore();
-
   if (isCorrect) {
     feedbackCorrect();
   } else {
     feedbackIncorrect(correctAnswer);
   }
 }
-
 
 function feedbackCorrect() {
   document.getElementById("feedback").innerText = "✅ Correct!";
@@ -81,7 +76,7 @@ function feedbackCorrect() {
 
 function feedbackIncorrect(correctAnswer) {
   document.getElementById("feedback").innerHTML = `❌ Wrong! Expected: ${highlightAnswer(correctAnswer)}`;
-  streak = 0; // Only reset streak on incorrect answer
+  streak = 0;
   updateScore();
   showRetryAndAccept();
 }
@@ -98,6 +93,8 @@ function showAnswer() {
 
   document.getElementById("feedback").innerHTML = `💡 Answer: ${highlightAnswer(correct)}`;
   showNextButton();
+  streak = 0;
+  updateScore();
 }
 
 function highlightAnswer(correctAnswer) {
@@ -131,7 +128,6 @@ function acceptAnswer() {
 function updateScore() {
   document.getElementById("score").innerText = score;
   document.getElementById("streak").innerText = streak;
-  document.getElementById("total").innerText = totalAttempts;
 }
 
 // UI Button State Handlers
