@@ -41,7 +41,6 @@ function nextQuestion() {
 function checkAnswer() {
   const rawInput = document.getElementById("answer").value.trim().toLowerCase();
   const userInput = rawInput.replace(/\s+/g, ' ');
-  fuzz = require('fuzzball');
 
   let isCorrect = false;
   let correctAnswer = '';
@@ -52,23 +51,11 @@ function checkAnswer() {
     isCorrect = userInput === hira || userInput === kanji;
     correctAnswer = `${hira} (${kanji || "no kanji"})`;
   } else {
-    // → We're in japanese_to_french mode: expecting French input
     const answers = current.french
       .split('/')
       .map(a => a.trim().toLowerCase().replace(/\s+/g, ' '));
 
-    // Debug log
-    console.log("Expecting one of:", answers);
-    console.log("User input:", userInput);
-
-    // Check if any answer contains or is contained by user input
-    isCorrect = answers.some(ans => ans.includes(userInput) || userInput.includes(ans));
-
-    // Fuzzy match if not an obvious substring match
-    if (!isCorrect) {
-      isCorrect = answers.some(ans => fuzz.ratio(ans, userInput) > 80);
-    }
-
+    isCorrect = answers.some(ans => isAnswerAcceptable(userInput, ans));
     correctAnswer = current.french;
   }
 
@@ -78,7 +65,6 @@ function checkAnswer() {
     feedbackIncorrect(correctAnswer);
   }
 }
-
 
 function feedbackCorrect() {
   document.getElementById("feedback").innerText = "✅ Correct!";
@@ -144,7 +130,7 @@ function updateScore() {
   document.getElementById("streak").innerText = streak;
 }
 
-// UI Control Helpers
+// UI Button State Handlers
 function showNextButton() {
   document.getElementById("next-button").style.display = "inline-block";
   document.getElementById("retry-button").style.display = "none";
@@ -170,4 +156,46 @@ function hideButtons() {
   document.getElementById("next-button").style.display = "none";
   document.getElementById("retry-button").style.display = "none";
   document.getElementById("accept-button").style.display = "none";
+}
+
+//
+// === Lightweight Fuzzy Matching ===
+//
+
+function tokenMatch(input, expected) {
+  const inputWords = input.split(/\s+/);
+  const expectedWords = expected.split(/\s+/);
+  const matches = inputWords.filter(word => expectedWords.includes(word));
+  return matches.length / expectedWords.length >= 0.6;
+}
+
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () => []);
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+function isFuzzyMatch(a, b, threshold = 2) {
+  return levenshtein(a, b) <= threshold;
+}
+
+function isAnswerAcceptable(userInput, correctAnswer) {
+  return (
+    userInput === correctAnswer ||
+    userInput.includes(correctAnswer) ||
+    correctAnswer.includes(userInput) ||
+    tokenMatch(userInput, correctAnswer) ||
+    isFuzzyMatch(userInput, correctAnswer)
+  );
 }
