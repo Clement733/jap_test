@@ -41,6 +41,7 @@ function nextQuestion() {
 function checkAnswer() {
   const rawInput = document.getElementById("answer").value.trim().toLowerCase();
   const userInput = rawInput.replace(/\s+/g, ' ');
+  fuzz = require('fuzzball');
 
   let isCorrect = false;
   let correctAnswer = '';
@@ -65,7 +66,7 @@ function checkAnswer() {
 
     // Fuzzy match if not an obvious substring match
     if (!isCorrect) {
-      isCorrect = answers.some(ans => fuzzball.ratio(ans, userInput) > 80);
+      isCorrect = answers.some(ans => fuzz.ratio(ans, userInput) > 80);
     }
 
     correctAnswer = current.french;
