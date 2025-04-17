@@ -27,8 +27,7 @@
   <!-- Load script.js and pass mode via URL -->
   <script>
     // Get the quiz mode from the URL (default to 'mixed')
-    const urlParams = new URLSearchParams(window.location.search);
-    window.quizMode = urlParams.get('mode') || 'mixed';
+    window.quizMode = new URLSearchParams(window.location.search).get('mode') || 'mixed';
   </script>
   <script src="script.js"></script>
 </body>
