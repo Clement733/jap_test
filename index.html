@@ -2,22 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Japanese Vocabulary Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Japanese Quiz – Homepage</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 3em; }
+    button {
+      font-size: 1.2em;
+      margin: 1em;
+      padding: 1em 2em;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>Japanese Vocabulary Quiz</h1>
-  <div id="quiz-box">
-    <p id="question">Loading...</p>
-    <input type="text" id="answer" placeholder="Your answer here">
-    <button onclick="checkAnswer()">Check</button>
-    <button onclick="showAnswer()">Show Answer</button>
-    <button onclick="nextQuestion()" id="next-button" style="display:none;">Next</button>
-    <button onclick="tryAgain()" id="retry-button" style="display:none;">Try Again</button>
-    <button onclick="acceptAnswer()" id="accept-button" style="display:none;">Mark as Acceptable</button>
-    <p id="feedback"></p>
-    <p>Score: <span id="score">0</span> | Streak: <span id="streak">0</span></p>
-  </div>
-  <script src="script.js"></script>
+  <h1>Welcome to the Japanese Vocabulary Quiz!</h1>
+  <p>Select a mode to begin:</p>
+  <button onclick="startQuiz('french_to_japanese')">🇫🇷 French → Japanese</button>
+  <button onclick="startQuiz('japanese_to_french')">🇯🇵 Japanese → French</button>
+  <button onclick="startQuiz('mixed')">🔀 Mixed Mode</button>
+
+  <script>
+    function startQuiz(mode) {
+      window.location.href = `quiz.html?mode=${mode}`;
+    }
+  </script>
 </body>
 </html>

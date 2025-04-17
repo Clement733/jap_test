@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+const quizMode = urlParams.get('mode') || 'mixed';
+
 let questions = [];
 let current = null;
 let currentLanguage = null;
@@ -21,8 +24,12 @@ function nextQuestion() {
   const index = Math.floor(Math.random() * questions.length);
   current = questions.splice(index, 1)[0];
 
-  const directions = ['french_to_japanese', 'japanese_to_french'];
-  currentLanguage = directions[Math.floor(Math.random() * directions.length)];
+  if (quizMode === 'mixed') {
+    const directions = ['french_to_japanese', 'japanese_to_french'];
+    currentLanguage = directions[Math.floor(Math.random() * directions.length)];
+  } else {
+    currentLanguage = quizMode; // Use the selected mode
+  }
 
   let questionText = '';
   if (currentLanguage === 'french_to_japanese') {
