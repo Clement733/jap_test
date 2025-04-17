@@ -5,34 +5,54 @@ let current = null;
 let currentLanguage = null;
 let score = 0;
 let streak = 0;
+let allWords = [];
 
-fetch('words.json')
+fetch('jlpt_french_words.json')
   .then(res => res.json())
   .then(data => {
-    // Filter data based on selected quiz mode
-    if (quizMode === 'french_to_japanese') {
-      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
-    } else if (quizMode === 'japanese_to_french') {
-      questions = data.filter(q => q.hiragana || q.kanji);
-    } else {
-      // mixed mode
-      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
-    }
-
-    if (questions.length === 0) {
-      document.getElementById("question").innerText =
-        "⚠️ No available questions for this mode.";
-      hideButtons();
-      return;
-    }
-
-    nextQuestion();
+    allWords = data;
+    applyLevelFilter(); // Initial load
   })
   .catch(err => {
     document.getElementById("question").innerText =
       "❌ Error loading questions.";
-    console.error("Error loading words.json:", err);
+    console.error("Error loading jlpt_french_words.json:", err);
 });
+
+function getSelectedLevels() {
+  const select = document.getElementById("level-select");
+  return Array.from(select.selectedOptions).map(opt => opt.value);
+}
+
+function applyLevelFilter() {
+  const selectedLevels = getSelectedLevels();
+
+  // Filter based on mode and levels
+  questions = allWords.filter(q => {
+    const levelOk = selectedLevels.length === 0 || selectedLevels.includes(q.level);
+    const hasFrench = q.french;
+    const hasJapanese = q.hiragana || q.kanji;
+
+    if (!levelOk || !hasFrench || !hasJapanese) return false;
+
+    if (quizMode === 'french_to_japanese') {
+      return q.french && hasJapanese;
+    } else if (quizMode === 'japanese_to_french') {
+      return hasJapanese;
+    } else {
+      return q.french && hasJapanese; // mixed
+    }
+  });
+
+  if (questions.length === 0) {
+    document.getElementById("question").innerText =
+      "⚠️ No available questions for the selected level(s).";
+    hideButtons();
+    return;
+  }
+
+  nextQuestion();
+}
 
 function nextQuestion() {
     if (questions.length === 0) {

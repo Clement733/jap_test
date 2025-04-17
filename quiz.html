@@ -7,6 +7,15 @@
 </head>
 <body>
   <h1>Japanese Vocabulary Quiz</h1>
+  <label for="level-select">JLPT Level:</label>
+    <select id="level-select" multiple size="5">
+    <option value="N5">N5</option>
+    <option value="N4">N4</option>
+    <option value="N3">N3</option>
+    <option value="N2">N2</option>
+    <option value="N1">N1</option>
+    </select>
+    <button onclick="applyLevelFilter()">Apply Level Filter</button>
   <div id="quiz-box">
     <p id="question">Loading...</p>
 
