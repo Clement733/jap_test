@@ -107,6 +107,8 @@ function nextQuestion() {
     document.getElementById("answer").value = "";
   
     showCheckAndShowAnswer();
+    document.querySelector("button[onclick='checkAnswer()']").disabled = false;
+  document.querySelector("button[onclick='showAnswer()']").disabled = false;
 }
   
 
