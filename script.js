@@ -1,4 +1,5 @@
-const quizMode = window.quizMode || 'mixed';
+const urlParams = new URLSearchParams(window.location.search);
+const quizMode = urlParams.get('mode') || 'mixed';
 
 let questions = [];
 let current = null;
@@ -7,11 +8,20 @@ let score = 0;
 let streak = 0;
 let allWords = [];
 
-fetch('jlpt_french_words.json')
+const sourceFile = quizMode === 'custom_mixed' ? 'quizz.json' : 'jlpt_french_words.json';
+
+fetch(sourceFile)
   .then(res => res.json())
   .then(data => {
     allWords = data;
-    applyLevelFilter(); // Initial load
+
+    if (quizMode === 'custom_mixed') {
+      // Skip level filtering for custom quizzes
+      questions = allWords.filter(q => q.french && (q.hiragana || q.kanji));
+      nextQuestion();
+    } else {
+      applyLevelFilter(); // JLPT modes use level filtering
+    }
   })
   .catch(err => {
     document.getElementById("question").innerText =
