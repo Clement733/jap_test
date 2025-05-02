@@ -157,7 +157,7 @@ function updateProgress() {
   const frSeen = seenFrenchPrompts.size;
   const jpSeen = seenJapanesePrompts.size;
   document.getElementById("progress").innerText =
-    `Seen: ${frSeen}/${total} (FR→JP), ${jpSeen}/${total} (JP→FR)`;
+    `Seen: ${frSeen}/${total} (EN→JP), ${jpSeen}/${total} (JP→EN)`;
 }
 
 function restartQuiz() {
@@ -199,8 +199,9 @@ function checkAnswer() {
   document.querySelector("button[onclick='showAnswer()']").disabled = true;
 }
 
-function feedbackCorrect() {
+function feedbackCorrect(correctAnswer) {
   document.getElementById("feedback").innerText = "✅ Correct!";
+  document.getElementById("feedback").innerHTML = highlightAnswer(correctAnswer);
   score++;
   streak++;
   updateScore();
