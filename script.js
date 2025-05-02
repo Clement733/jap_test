@@ -1,5 +1,11 @@
 const urlParams = new URLSearchParams(window.location.search);
 const quizMode = urlParams.get('mode') || 'mixed';
+if (quizMode === 'custom_mixed') {
+  document.addEventListener("DOMContentLoaded", () => {
+    const wrapper = document.getElementById("level-wrapper");
+    if (wrapper) wrapper.remove();
+  });
+}
 
 let questions = [];
 let current = null;
@@ -85,8 +91,13 @@ function nextQuestion() {
     if (currentLanguage === 'french_to_japanese') {
       questionText = `Translate to Japanese: ${current.french}`;
     } else {
-      questionText = `Translate to French: ${current.kanji || current.hiragana}`;
+      if (quizMode === 'custom_mixed') {
+        questionText = `Translate to English: ${current.kanji || current.hiragana}`;
+      } else {
+        questionText = `Translate to French: ${current.kanji || current.hiragana}`;
+      }
     }
+    
   
     document.getElementById("question").innerText = questionText;
     document.getElementById("feedback").innerText = "";
