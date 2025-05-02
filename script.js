@@ -17,6 +17,9 @@ let score = 0;
 let streak = 0;
 let allWords = [];
 
+const seenFrenchPrompts = new Set();
+const seenJapanesePrompts = new Set();
+
 const sourceFile = quizMode === 'custom_mixed' ? 'quizz.json' : 'jlpt_french_words.json';
 
 fetch(sourceFile)
@@ -25,17 +28,16 @@ fetch(sourceFile)
     allWords = data;
 
     if (quizMode === 'custom_mixed') {
-      // Skip level filtering for custom quizzes
       questions = allWords.filter(q => q.french && (q.hiragana || q.kanji));
       nextQuestion();
     } else {
-      applyLevelFilter(); // JLPT modes use level filtering
+      applyLevelFilter();
     }
   })
   .catch(err => {
     document.getElementById("question").innerText =
       "❌ Error loading questions.";
-    console.error("Error loading jlpt_french_words.json:", err);
+    console.error("Error loading words:", err);
 });
 
 function getSelectedLevels() {
@@ -46,7 +48,6 @@ function getSelectedLevels() {
 function applyLevelFilter() {
   const selectedLevels = getSelectedLevels();
 
-  // Filter based on mode and levels
   questions = allWords.filter(q => {
     const levelOk = selectedLevels.length === 0 || selectedLevels.includes(q.level);
     const hasFrench = q.french;
@@ -59,7 +60,7 @@ function applyLevelFilter() {
     } else if (quizMode === 'japanese_to_french') {
       return hasJapanese;
     } else {
-      return q.french && hasJapanese; // mixed
+      return q.french && hasJapanese;
     }
   });
 
@@ -74,41 +75,99 @@ function applyLevelFilter() {
 }
 
 function nextQuestion() {
-    if (questions.length === 0) {
-      document.getElementById("question").innerText = "Quiz finished!";
-      hideButtons();
-      return;
-    }
-  
-    const index = Math.floor(Math.random() * questions.length);
-    current = questions.splice(index, 1)[0];
-  
-    if (quizMode === 'mixed' || quizMode === 'custom_mixed') {
-      const directions = ['french_to_japanese', 'japanese_to_french'];
-      currentLanguage = directions[Math.floor(Math.random() * directions.length)];
-    } else {
-      currentLanguage = quizMode;
-    }
-  
-    let questionText = '';
+  if (quizMode !== 'custom_mixed') {
+    pickStandardQuestion();
+    return;
+  }
+
+  const directions = ['french_to_japanese', 'japanese_to_french'];
+  currentLanguage = directions[Math.floor(Math.random() * directions.length)];
+
+  let filtered = questions.filter(q => {
     if (currentLanguage === 'french_to_japanese') {
-      questionText = `Translate to Japanese: ${current.french}`;
+      return !seenFrenchPrompts.has(q.french);
     } else {
-      if (quizMode === 'custom_mixed') {
-        questionText = `Translate to English: ${current.kanji || current.hiragana}`;
-      } else {
-        questionText = `Translate to French: ${current.kanji || current.hiragana}`;
-      }
+      return !seenJapanesePrompts.has(q.kanji || q.hiragana);
     }
-    
-  
-    document.getElementById("question").innerText = questionText;
-    document.getElementById("feedback").innerText = "";
-    document.getElementById("answer").value = "";
-  
-    showCheckAndShowAnswer();
+  });
+
+  if (filtered.length === 0) {
+    const allSeen = seenFrenchPrompts.size + seenJapanesePrompts.size >= questions.length * 2;
+    document.getElementById("question").innerText = "✅ All words seen in both directions!";
+    hideButtons();
+    document.getElementById("restart-button").style.display = "inline-block";
+    return;
+  }
+
+  const index = Math.floor(Math.random() * filtered.length);
+  current = filtered[index];
+
+  if (currentLanguage === 'french_to_japanese') {
+    seenFrenchPrompts.add(current.french);
+  } else {
+    seenJapanesePrompts.add(current.kanji || current.hiragana);
+  }
+
+  let questionText = currentLanguage === 'french_to_japanese'
+    ? `Translate to Japanese: ${current.french}`
+    : `Translate to English: ${current.kanji || current.hiragana}`;
+
+  document.getElementById("question").innerText = questionText;
+  document.getElementById("feedback").innerText = "";
+  document.getElementById("answer").value = "";
+
+  updateProgress();
+  showCheckAndShowAnswer();
 }
-  
+
+function pickStandardQuestion() {
+  if (questions.length === 0) {
+    document.getElementById("question").innerText = "Quiz finished!";
+    hideButtons();
+    return;
+  }
+
+  const index = Math.floor(Math.random() * questions.length);
+  current = questions.splice(index, 1)[0];
+
+  if (quizMode === 'mixed') {
+    const directions = ['french_to_japanese', 'japanese_to_french'];
+    currentLanguage = directions[Math.floor(Math.random() * directions.length)];
+  } else {
+    currentLanguage = quizMode;
+  }
+
+  let questionText = '';
+  if (currentLanguage === 'french_to_japanese') {
+    questionText = `Translate to Japanese: ${current.french}`;
+  } else {
+    questionText = `Translate to French: ${current.kanji || current.hiragana}`;
+  }
+
+  document.getElementById("question").innerText = questionText;
+  document.getElementById("feedback").innerText = "";
+  document.getElementById("answer").value = "";
+
+  showCheckAndShowAnswer();
+}
+
+function updateProgress() {
+  if (quizMode !== 'custom_mixed') return;
+  const total = questions.length;
+  const frSeen = seenFrenchPrompts.size;
+  const jpSeen = seenJapanesePrompts.size;
+  document.getElementById("progress").innerText =
+    `Seen: ${frSeen}/${total} (FR→JP), ${jpSeen}/${total} (JP→FR)`;
+}
+
+function restartQuiz() {
+  seenFrenchPrompts.clear();
+  seenJapanesePrompts.clear();
+  document.getElementById("restart-button").style.display = "none";
+  document.getElementById("feedback").innerText = "";
+  document.getElementById("answer").value = "";
+  nextQuestion();
+}  
 
 function checkAnswer() {
   const rawInput = document.getElementById("answer").value.trim().toLowerCase();
