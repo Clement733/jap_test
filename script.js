@@ -200,7 +200,7 @@ function checkAnswer() {
 }
 
 function feedbackCorrect(correctAnswer) {
-  document.getElementById("feedback").innerText = `✅ Correct! ${highlightAnswer(correctAnswer)}`;
+  document.getElementById("feedback").innerHTML = `✅ Correct! ${highlightAnswer(correctAnswer)}`;
   score++;
   streak++;
   updateScore();
