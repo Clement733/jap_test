@@ -83,7 +83,7 @@ function nextQuestion() {
     const index = Math.floor(Math.random() * questions.length);
     current = questions.splice(index, 1)[0];
   
-    if (quizMode === 'mixed') {
+    if (quizMode === 'mixed' || quizMode === 'custom_mixed') {
       const directions = ['french_to_japanese', 'japanese_to_french'];
       currentLanguage = directions[Math.floor(Math.random() * directions.length)];
     } else {
@@ -107,8 +107,6 @@ function nextQuestion() {
     document.getElementById("answer").value = "";
   
     showCheckAndShowAnswer();
-    document.querySelector("button[onclick='checkAnswer()']").disabled = false;
-  document.querySelector("button[onclick='showAnswer()']").disabled = false;
 }
   
 
@@ -231,6 +229,8 @@ function showCheckAndShowAnswer() {
   document.getElementById("retry-button").style.display = "none";
   document.getElementById("accept-button").style.display = "none";
   document.getElementById("answer").disabled = false;
+  document.querySelector("button[onclick='checkAnswer()']").disabled = false;
+  document.querySelector("button[onclick='showAnswer()']").disabled = false;
 }
 
 function hideButtons() {
