@@ -4,6 +4,9 @@ if (quizMode === 'custom_mixed') {
   document.addEventListener("DOMContentLoaded", () => {
     const wrapper = document.getElementById("level-wrapper");
     if (wrapper) wrapper.remove();
+
+    const levelBtn = document.getElementById("level-button");
+    if (levelBtn) levelBtn.remove();
   });
 }
 
@@ -133,6 +136,8 @@ function checkAnswer() {
   } else {
     feedbackIncorrect(correctAnswer);
   }
+  document.querySelector("button[onclick='checkAnswer()']").disabled = true;
+  document.querySelector("button[onclick='showAnswer()']").disabled = true;
 }
 
 function feedbackCorrect() {
@@ -164,6 +169,9 @@ function showAnswer() {
   showNextButton();
   streak = 0;
   updateScore();
+  document.querySelector("button[onclick='checkAnswer()']").disabled = true;
+  document.querySelector("button[onclick='showAnswer()']").disabled = true;
+
 }
 
 function highlightAnswer(correctAnswer) {
@@ -188,6 +196,8 @@ function tryAgain() {
   document.getElementById("feedback").innerText = "";
   document.getElementById("answer").value = "";
   showCheckAndShowAnswer();
+  document.querySelector("button[onclick='checkAnswer()']").disabled = false;
+  document.querySelector("button[onclick='showAnswer()']").disabled = false;
 }
 
 function acceptAnswer() {
