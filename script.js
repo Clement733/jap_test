@@ -191,7 +191,7 @@ function checkAnswer() {
   }
 
   if (isCorrect) {
-    feedbackCorrect();
+    feedbackCorrect(correctAnswer);
   } else {
     feedbackIncorrect(correctAnswer);
   }
