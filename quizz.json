@@ -158,7 +158,7 @@
     {"level": "custom", "kanji": "述", "hiragana": null, "french": "mention, state, speak"},
     {"level": "custom", "kanji": "記述", "hiragana": "きじゅつ", "french": "description, account"},
     {"level": "custom", "kanji": "上述", "hiragana": "じょうじゅつ", "french": "above-mentioned, aforementioned"},
-    {"level": "custom", "kanji": "口述", "hiragana": "こうじゅつ", "french": "dictation, verbal statement"}
+    {"level": "custom", "kanji": "口述", "hiragana": "こうじゅつ", "french": "dictation, verbal statement"},
     {"level": "custom", "kanji": "線", "hiragana": null, "french": "Line, track"},
     {"level": "custom", "kanji": "光線", "hiragana": "こうせん", "french": "Beam, light ray"},
     {"level": "custom", "kanji": "内線", "hiragana": "ないせん", "french": "Phone extension, indoor wiring, inner line"},
