@@ -22,12 +22,42 @@
 
   <br></br>
 
-  <button onclick="startQuiz('custom_mixed')">Custom Quiz</button>
+  <button onclick="showCustomQuizOptions()">🧪 Custom Mixed Quiz</button>
+
+  <div id="custom-quiz-options" style="display:none; margin-top: 1em;">
+    <label for="word-count">How many words?</label>
+    <input type="range" id="word-count" min="1" max="200" value="20" oninput="updateCountLabel(this.value)">
+    <span id="count-label">20</span>
+    <br><br>
+    <button onclick="startCustomQuiz()">Start Custom Quiz</button>
+  </div>
+
 
   <script>
     function startQuiz(mode) {
       window.location.href = `quiz.html?mode=${mode}`;
     }
-  </script>
+  
+    function showCustomQuizOptions() {
+      fetch('quizz.json')
+        .then(res => res.json())
+        .then(data => {
+          const max = data.length;
+          document.getElementById('word-count').max = max;
+          document.getElementById('word-count').value = Math.min(20, max);
+          document.getElementById('count-label').innerText = Math.min(20, max);
+          document.getElementById('custom-quiz-options').style.display = 'block';
+        });
+    }
+  
+    function updateCountLabel(val) {
+      document.getElementById("count-label").innerText = val;
+    }
+  
+    function startCustomQuiz() {
+      const count = document.getElementById("word-count").value;
+      window.location.href = `quiz.html?mode=custom_mixed&limit=${count}`;
+    }
+  </script>    
 </body>
 </html>

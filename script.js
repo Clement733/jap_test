@@ -1,5 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const quizMode = urlParams.get('mode') || 'mixed';
+const wordLimit = parseInt(urlParams.get('limit'), 10) || Infinity;
+
 if (quizMode === 'custom_mixed') {
   document.addEventListener("DOMContentLoaded", () => {
     const wrapper = document.getElementById("level-wrapper");
@@ -28,11 +30,16 @@ fetch(sourceFile)
     allWords = data;
 
     if (quizMode === 'custom_mixed') {
-      questions = allWords.filter(q => q.french && (q.hiragana || q.kanji));
+      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
+      if (wordLimit < questions.length) {
+        questions = questions.sort(() => 0.5 - Math.random()).slice(0, wordLimit);
+      }
+      allWords = questions; // for tracking
       nextQuestion();
     } else {
+      allWords = data;
       applyLevelFilter();
-    }
+    }    
   })
   .catch(err => {
     document.getElementById("question").innerText =
