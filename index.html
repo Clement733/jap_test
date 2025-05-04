@@ -42,8 +42,7 @@
       fetch('quizz.json')
         .then(res => res.json())
         .then(data => {
-          const validItems = data.filter(q => q.french && (q.hiragana || q.kanji));
-          const max = validItems.length;
+          const max = data.length;
 
           const slider = document.getElementById('word-count');
           const label = document.getElementById('count-label');
