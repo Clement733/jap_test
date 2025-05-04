@@ -25,9 +25,9 @@
   <button onclick="showCustomQuizOptions()">English N2 Quiz</button>
 
   <div id="custom-quiz-options" style="display:none; margin-top: 1em;">
-    <label for="word-count">How many words?</label>
-    <input type="range" id="word-count" min="1" max="200" value="20" oninput="updateCountLabel(this.value)">
-    <span id="count-label">20</span>
+    <label for="word-count">How many words do you want to practice?</label>
+    <input type="range" id="word-count" min="1" value="20" oninput="updateCountLabel(this.value)">
+    <span id="count-label">Words: 20</span>
     <br><br>
     <button onclick="startCustomQuiz()">Start Quiz</button>
   </div>
@@ -37,27 +37,37 @@
     function startQuiz(mode) {
       window.location.href = `quiz.html?mode=${mode}`;
     }
-  
+
     function showCustomQuizOptions() {
       fetch('quizz.json')
         .then(res => res.json())
         .then(data => {
-          const max = data.length;
-          document.getElementById('word-count').max = max;
-          document.getElementById('word-count').value = Math.min(20, max);
-          document.getElementById('count-label').innerText = Math.min(20, max);
+          const validItems = data.filter(q => q.french && (q.hiragana || q.kanji));
+          const max = validItems.length;
+
+          const slider = document.getElementById('word-count');
+          const label = document.getElementById('count-label');
+
+          slider.max = max;
+          slider.value = Math.min(20, max);
+          label.innerText = `Words: ${slider.value}/${max}`;
           document.getElementById('custom-quiz-options').style.display = 'block';
+        })
+        .catch(err => {
+          alert("❌ Could not load quiz data.");
+          console.error(err);
         });
     }
-  
+
     function updateCountLabel(val) {
-      document.getElementById("count-label").innerText = val;
+      const max = document.getElementById("word-count").max;
+      document.getElementById("count-label").innerText = `Words: ${val}/${max}`;
     }
-  
+
     function startCustomQuiz() {
       const count = document.getElementById("word-count").value;
       window.location.href = `quiz.html?mode=custom_mixed&limit=${count}`;
     }
-  </script>    
+  </script>   
 </body>
 </html>
