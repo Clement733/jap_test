@@ -46,6 +46,18 @@ fetch(sourceFile)
     console.error("Error loading words:", err);
 });
 
+function trackSeen() {
+  if (quizMode !== 'custom_mixed' || !current) return;
+
+  if (currentLanguage === 'french_to_japanese') {
+    if (!seenFrench.has(current.french)) seenFrench.add(current.french);
+  } else {
+    const key = current.kanji || current.hiragana;
+    if (!seenJapanese.has(key)) seenJapanese.add(key);
+  }
+  updateProgress();
+}
+
 function getSelectedLevels() {
   const select = document.getElementById("level-select");
   return Array.from(select.selectedOptions).map(opt => opt.value);
@@ -273,6 +285,7 @@ function tryAgain() {
 }
 
 function acceptAnswer() {
+  trackSeen();
   feedbackCorrect();
 }
 
