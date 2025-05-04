@@ -19,8 +19,8 @@ let score = 0;
 let streak = 0;
 let allWords = [];
 
-const seenFrenchPrompts = new Set();
-const seenJapanesePrompts = new Set();
+let seenFrenchPrompts = new Set();
+let seenJapanesePrompts = new Set();
 
 const sourceFile = quizMode === 'custom_mixed' ? 'quizz.json' : 'jlpt_french_words.json';
 
@@ -225,6 +225,10 @@ function checkAnswer() {
 }
 
 function feedbackCorrect(correctAnswer) {
+  if (quizMode === 'custom_mixed') {
+    trackSeen();
+  }
+
   document.getElementById("feedback").innerHTML = `✅ Correct! ${highlightAnswer(correctAnswer)}`;
   score++;
   streak++;
@@ -285,7 +289,6 @@ function tryAgain() {
 }
 
 function acceptAnswer() {
-  trackSeen();
   feedbackCorrect();
 }
 
