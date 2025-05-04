@@ -30,14 +30,13 @@ fetch(sourceFile)
     allWords = data;
 
     if (quizMode === 'custom_mixed') {
-      questions = data.filter(q => q.french && (q.hiragana || q.kanji));
-      if (wordLimit < questions.length) {
-        questions = questions.sort(() => 0.5 - Math.random()).slice(0, wordLimit);
-      }
-      allWords = questions; // for tracking
+      let filtered = data.filter(q => q.french && (q.hiragana || q.kanji));
+      const limit = wordLimit || filtered.length;
+
+      questions = shuffleArray(filtered).slice(0, limit);
+      allWords = questions;
       nextQuestion();
     } else {
-      allWords = data;
       applyLevelFilter();
     }    
   })
@@ -125,6 +124,13 @@ function nextQuestion() {
 
   updateProgress();
   showCheckAndShowAnswer();
+}
+
+function shuffleArray(array) {
+  return array
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
 }
 
 function pickStandardQuestion() {
