@@ -201,6 +201,8 @@ function checkAnswer() {
 
     let isCorrect = false;
     let correctAnswer = '';
+    let hira = null;
+    let kanji = null;
 
     if (currentLanguage === 'french_to_japanese') {
       const hira = current.hiragana?.trim();
