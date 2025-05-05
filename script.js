@@ -216,7 +216,7 @@ function checkAnswer() {
     }
 
     if (isCorrect) {
-      feedbackCorrect();
+      feedbackCorrect(correctAnswer);
     } else {
       feedbackIncorrect(correctAnswer);
     }
@@ -294,7 +294,7 @@ function tryAgain() {
 }
 
 function acceptAnswer() {
-  feedbackCorrect();
+  feedbackCorrect(correctAnswer);
 }
 
 function updateScore() {
