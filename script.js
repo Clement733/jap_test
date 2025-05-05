@@ -201,8 +201,6 @@ function checkAnswer() {
 
     let isCorrect = false;
     let correctAnswer = '';
-    let hira = null;
-    let kanji = null;
 
     if (currentLanguage === 'french_to_japanese') {
       const hira = current.hiragana?.trim();
@@ -216,11 +214,7 @@ function checkAnswer() {
       isCorrect = answers.some(ans => isAnswerAcceptable(userInput, ans));
       correctAnswer = current.french;
     }
-    console.log("User Input:", userInput);
-    console.log("Expected (hira):", hira);
-    console.log("Expected (kanji):", kanji);
-    console.log("Current Entry:", current);
-    console.log("Expected Answers (French):", answers);
+
     if (isCorrect) {
       feedbackCorrect();
     } else {
