@@ -219,10 +219,6 @@ function checkAnswer() {
     }
 
     if (isCorrect) {
-      if (firstAttempt){
-        correctFirstTry++;
-        updateCorrectFirstTry();
-      }
       feedbackCorrect(correctAnswer);
     } else {
       feedbackIncorrect(correctAnswer);
@@ -239,6 +235,11 @@ function checkAnswer() {
 function feedbackCorrect(correctAnswer) {
   if (quizMode === 'custom_mixed') {
     trackSeen();
+  }
+
+  if (firstAttempt){
+    correctFirstTry++;
+    updateCorrectFirstTry();
   }
 
   document.getElementById("feedback").innerHTML = `✅ Correct! ${highlightAnswer(correctAnswer)}`;
@@ -293,6 +294,7 @@ function highlightAnswer(correctAnswer) {
 }
 
 function tryAgain() {
+  firstAttempt = false;
   document.getElementById("feedback").innerText = "";
   document.getElementById("answer").value = "";
   showCheckAndShowAnswer();
