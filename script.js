@@ -195,33 +195,42 @@ function restartQuiz() {
 }  
 
 function checkAnswer() {
-  const rawInput = document.getElementById("answer").value.trim().toLowerCase();
-  const userInput = rawInput.replace(/\s+/g, ' ');
+  try {
+    const rawInput = document.getElementById("answer").value.trim().toLowerCase();
+    const userInput = rawInput.replace(/\s+/g, ' ');
 
-  let isCorrect = false;
-  let correctAnswer = '';
+    let isCorrect = false;
+    let correctAnswer = '';
 
-  if (currentLanguage === 'french_to_japanese') {
-    const hira = current.hiragana?.trim();
-    const kanji = current.kanji?.trim();
-    isCorrect = userInput === hira || userInput === kanji;
-    correctAnswer = `${hira} (${kanji || "no kanji"})`;
-  } else {
-    const answers = current.french
-      .split('/')
-      .map(a => a.trim().toLowerCase().replace(/\s+/g, ' '));
+    if (currentLanguage === 'french_to_japanese') {
+      const hira = current.hiragana?.trim();
+      const kanji = current.kanji?.trim();
+      isCorrect = userInput === hira || userInput === kanji;
+      correctAnswer = `${hira} (${kanji || "no kanji"})`;
+    } else {
+      const answers = current.french
+        .split('/')
+        .map(a => a.trim().toLowerCase().replace(/\s+/g, ' '));
+      isCorrect = answers.some(ans => isAnswerAcceptable(userInput, ans));
+      correctAnswer = current.french;
+    }
+    console.log("User Input:", userInput);
+    console.log("Expected (hira):", hira);
+    console.log("Expected (kanji):", kanji);
+    console.log("Current Entry:", current);
+    console.log("Expected Answers (French):", answers);
+    if (isCorrect) {
+      feedbackCorrect();
+    } else {
+      feedbackIncorrect(correctAnswer);
+    }
 
-    isCorrect = answers.some(ans => isAnswerAcceptable(userInput, ans));
-    correctAnswer = current.french;
+    document.querySelector("button[onclick='checkAnswer()']").disabled = true;
+    document.querySelector("button[onclick='showAnswer()']").disabled = true;
+  } catch (err) {
+    console.error("❌ Error in checkAnswer():", err, current);
+    alert("⚠️ A problem occurred while checking your answer. Check the console.");
   }
-
-  if (isCorrect) {
-    feedbackCorrect(correctAnswer);
-  } else {
-    feedbackIncorrect(correctAnswer);
-  }
-  document.querySelector("button[onclick='checkAnswer()']").disabled = true;
-  document.querySelector("button[onclick='showAnswer()']").disabled = true;
 }
 
 function feedbackCorrect(correctAnswer) {
