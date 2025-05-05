@@ -50,10 +50,10 @@ function trackSeen() {
   if (quizMode !== 'custom_mixed' || !current) return;
 
   if (currentLanguage === 'french_to_japanese') {
-    if (!seenFrench.has(current.french)) seenFrench.add(current.french);
+    if (!seenFrenchPrompts.has(current.french)) seenFrenchPrompts.add(current.french);
   } else {
     const key = current.kanji || current.hiragana;
-    if (!seenJapanese.has(key)) seenJapanese.add(key);
+    if (!seenJapanesePrompts.has(key)) seenJapanesePrompts.add(key);
   }
   updateProgress();
 }
