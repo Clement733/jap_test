@@ -17,6 +17,8 @@ let current = null;
 let currentLanguage = null;
 let score = 0;
 let streak = 0;
+let correctFirstTry = 0;
+let firstAttempt = true;
 let allWords = [];
 
 let seenFrenchPrompts = new Set();
@@ -93,6 +95,7 @@ function applyLevelFilter() {
 }
 
 function nextQuestion() {
+  firstAttempt = true;
   if (quizMode !== 'custom_mixed') {
     pickStandardQuestion();
     return;
@@ -216,6 +219,10 @@ function checkAnswer() {
     }
 
     if (isCorrect) {
+      if (firstAttempt){
+        correctFirstTry++;
+        updateCorrectFirstTry();
+      }
       feedbackCorrect(correctAnswer);
     } else {
       feedbackIncorrect(correctAnswer);
@@ -300,6 +307,10 @@ function acceptAnswer() {
 function updateScore() {
   document.getElementById("score").innerText = score;
   document.getElementById("streak").innerText = streak;
+}
+
+function updateCorrectFirstTry() {
+  document.getElementById("correct-first-try").innerText = correctFirstTry;
 }
 
 // UI Button State Handlers
